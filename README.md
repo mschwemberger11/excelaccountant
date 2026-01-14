@@ -1,5 +1,7 @@
 # excelaccountant
-Software, basierend auf VBA Excel Makros für die doppelte Buchfürung. Ursprünglich für die Arbeit des Schatzmeisters eines Vereins entwickelt.       
+Software, basierend auf VBA Excel Makros für die doppelte Buchfürung. Ursprünglich um 2000 herum für die Arbeit des Schatzmeisters eines Vereins entwickelt. Mehrere Personen haben über die Jahre "ihren Senf" dazugegeben. Inzwischen ist es von einem einfachen Makro zu einem recht komplizierten Konstrukt gewachsen. Die Arbeit hat es stets erfüllt. Im Zuge der Modernisierung wird es nun nicht mehr gebraucht. Zum Löschen ist es zu Schade. Eventuell kann jemand was damit anfangen. Viel Spass :)
+
+
 Funktion:
 Mit dem Buchungsprogramm ExAcc kann der verantwortliche Schatzmeister 
 (Anwender) die Bewegungen des Finanzkörpers einfach erfassen und übersichtlich darstellen. 
