@@ -1,32 +1,32 @@
-Attribute VB_Name = "FABest‰tigen"
+Attribute VB_Name = "FABest√§tigen"
 '*************************************************************************************
-'* Makro FABest‰tigen *                                                              *
+'* Makro FABest√§tigen *                                                              *
 '*************************************************************************************
 ' Aufruf: Tastenkombination: Strg+f  von einer Kontenplanzeile aus, falls der Kontenplan
 'einen Personenkontobereich mit Mitggliedskonten (Kontoart 10, Sammelkto 1000) und/oder
-'Spenderkonten Kontoart11, SammelKto 2001) und/oder Aufwandsentsch‰digungskonten
-'(KtoArt 12, SammelKonto 200) enth‰lt.
+'Spenderkonten Kontoart11, SammelKto 2001) und/oder Aufwandsentsch√§digungskonten
+'(KtoArt 12, SammelKonto 200) enth√§lt.
 
-'Erstellung einer Beitrags- oder Spendenbescheinigung f¸r das im Kontenplan
-'angew‰hlte Mitglied (Kontoart 10 und Sammelkonto 1000 oder den angew‰hlten
+'Erstellung einer Beitrags- oder Spendenbescheinigung f√ºr das im Kontenplan
+'angew√§hlte Mitglied (Kontoart 10 und Sammelkonto 1000 oder den angew√§hlten
 'Spender (Kontoart 11 und Sammelkont 2001) und bietet an, das Blatt auszudrucken.
-'Hat das angew‰hlte Konto das Sammelkonto 260, so ist es eine Auflistung der
-'Aufwandsentsch‰digungen
+'Hat das angew√§hlte Konto das Sammelkonto 260, so ist es eine Auflistung der
+'Aufwandsentsch√§digungen
 
-'Enth‰lt neben
+'Enth√§lt neben
 'Sub FinAmtBestaetigen():
 'Function BetragInWorten(Betrag As Variant) As String
 'Function EinerZehner(ByVal Ziffern As String,Stellung As Integer)As String
 'Letztere wird von BetragInWorten verwendet.
 
-'in Formularpr¸fen -- Buchungsjahr in die Finanzamtbest‰tigungsvorlage eintragen ---
+'in Formularpr√ºfen -- Buchungsjahr in die Finanzamtbest√§tigungsvorlage eintragen ---
 '    With Sheets("FABestVorl")
 '      .Activate
 '      Cells(10, 4).Value = BuchJahr  '********
 '    End With
  Option Explicit
- Const TiT = "Beitragsbest‰tigung"      'MsgBox-Parameter, die
- Const HilfeDatei = "ExAccHilfe.hlp"     'f¸r den ganzen Modul gelten
+ Const TiT = "Beitragsbest√§tigung"      'MsgBox-Parameter, die
+ Const HilfeDatei = "ExAccHilfe.hlp"     'f√ºr den ganzen Modul gelten
  
 Sub FinAmtBestaetigen()
 Attribute FinAmtBestaetigen.VB_ProcData.VB_Invoke_Func = "f\n14"
@@ -34,13 +34,13 @@ Attribute FinAmtBestaetigen.VB_ProcData.VB_Invoke_Func = "f\n14"
   Dim Bedingung, Schalter, HilfeKontxt, Antwort, W, DruckBereich As String
   Dim StartZelle As Range, AktZeile As Integer, AktSpalte As Integer
   Dim PersKtoNr As Integer, Beschreibung As String, IstAEKonto As Boolean
-  Dim Best‰tigung As Boolean, ZBetrL‰nge As Long
+  Dim Best√§tigung As Boolean, ZBetrL√§nge As Long
   Dim ZiffBetrag As Variant, EuroBetrag As String, WortBetrag As String, FName As String
   Dim Centbetrag As Integer
-  Dim MStraﬂe As String, MOrt As String, TagLetztZuw As String, ArtDerZuwendung As String
+  Dim MStra√üe As String, MOrt As String, TagLetztZuw As String, ArtDerZuwendung As String
   Dim BitteWenden, Voraussetzung As String
   Dim BestName As String, BlattName As String, KontoArt As Long, AktJahr As Long
-  Dim NamenL‰nge As Long, I As Long, B, D
+  Dim NamenL√§nge As Long, I As Long, B, D
   Dim EndText As String, Meldung2 As String
   Dim FABestVorlVorh As Boolean, SheetNr As Integer
   Dim NullBescheinigung As Boolean, NurSpenden As Boolean, Drucken As Boolean
@@ -51,20 +51,20 @@ Attribute FinAmtBestaetigen.VB_ProcData.VB_Invoke_Func = "f\n14"
 With ActiveWindow
 'FAB 1 ------------------------ Anfangssituation -----------------------------
   ExAccVersion = ThisWorkbook.Name
-  MappenName = ActiveWorkbook.Name  'wird ggf. ¸berschrieben
+  MappenName = ActiveWorkbook.Name  'wird ggf. √ºberschrieben
   Set StartZelle = ActiveCell
   AktZeile = ActiveCell.Row
   AktSpalte = ActiveCell.Column
   AlteExAccVersion = Sheets("Kontenplan").Cells(1, 12)
-  Best‰tigung = False
+  Best√§tigung = False
   NullBescheinigung = False
   MELDUNG = ""
 'FAB2 ------------------- Aufrufbedingung Kontenplan ----------------------------
   With ActiveSheet
     If ActiveSheet.Name <> "Kontenplan" Then
-      Bedingung = "nur von Blatt ''Kontenplan'' aus mˆglich" & Chr(10) & Chr(10) & _
+      Bedingung = "nur von Blatt ''Kontenplan'' aus m√∂glich" & Chr(10) & Chr(10) & _
                 "Dorthin Wechseln?"
-'      Schalter = vbYesNo '+ vbCritical + vbDefaultButton2 'Schaltfl‰chen definieren.
+'      Schalter = vbYesNo '+ vbCritical + vbDefaultButton2 'Schaltfl√§chen definieren.
       Antwort = MsgBox(Bedingung, vbYesNo, TiT) ', Hilfe, Ktxt)
       If Antwort = vbYes Then
         Worksheets("KontenPlan").Activate
@@ -86,7 +86,7 @@ With ActiveWindow
       MELDUNG = MELDUNG & Chr(10) & _
            "Die Applikation (Buchungsprojekt)" & Chr(10) & _
            MappenName & Chr(10) & _
-           "enth‰lt keine Personenkonten."
+           "enth√§lt keine Personenkonten."
       ABBRUCH = True
       GoTo BestBeenden
     End If
@@ -97,20 +97,20 @@ PersKtoNr = Cells(AktZeile, 2)
       IstAEKonto = True
       GoTo DruckDialog
     End If
-'FAB4 ---------------- Neue FA-Best‰tigungsvorlage anfordern ----------------
+'FAB4 ---------------- Neue FA-Best√§tigungsvorlage anfordern ----------------
     Sheets("Kontenplan").Activate
     If AktZeile = KPKZMitglieder Or Cells(KPKZMitglieder, 8) = "" Then
       FABestVorlVorh = False
-      Antwort = MsgBox("F¸r die Spendenbescheinigungs-Erstellung muss " & Chr(10) & _
-                       "eine g¸ltige Vorlage neu erstellt werden.", vbOKCancel, TiT)
+      Antwort = MsgBox("F√ºr die Spendenbescheinigungs-Erstellung muss " & Chr(10) & _
+                       "eine g√ºltige Vorlage neu erstellt werden.", vbOKCancel, TiT)
 'FAB5 ----------------- Andere Kopfzeilen nicht erlaubt --------------------
     If Cells(AktZeile, 2) = "" And AktZeile <> KPKZMitglieder Then
       MELDUNG = MELDUNG & Chr(10) & _
-      "Unzul‰ssige Zeile gew‰hlt. Personenkonto w‰hlen!"
+      "Unzul√§ssige Zeile gew√§hlt. Personenkonto w√§hlen!"
       ABBRUCH = True
       GoTo BestBeenden
     End If
-'FAB6 ---------------- alte FABestVorl ggf. lˆschen -------------------
+'FAB6 ---------------- alte FABestVorl ggf. l√∂schen -------------------
       If Antwort = vbOK Then
         For Each W In Worksheets
           With W
@@ -136,8 +136,8 @@ PersKtoNr = Cells(AktZeile, 2)
           Sheets("FABestVorl").Activate
           MELDUNG = MELDUNG & Chr(10) & _
           "Diese Spendenbescheinigungs-Vorlage wurde aus " & ExAccVersion & " erneuert." _
-          & Chr(10) & "Sie wird f¸r die folgenden Bescheinigungen verwendet." _
-          & Chr(10) & "Jetzt Pr¸fen und ggf. Jahr korrigieren (Jahr)"
+          & Chr(10) & "Sie wird f√ºr die folgenden Bescheinigungen verwendet." _
+          & Chr(10) & "Jetzt Pr√ºfen und ggf. Jahr korrigieren (Jahr)"
           FABestVorlVorh = True
           Sheets("Kontenplan").Cells(KPKZMitglieder, 8) = "FABestVorlVorhanden"
           GoTo BestBeenden
@@ -154,15 +154,15 @@ PersonenKonto:  'Mitglieds/Spenderkonto?
     Workbooks(MappenName).Sheets("Kontenplan").Activate
     PersKtoNr = Cells(AktZeile, 2)
     Call KtoKennDat(PersKtoNr)
-'FAB9 -------------------- angw‰hltes Konto ein AE-Konto? ------------------
+'FAB9 -------------------- angw√§hltes Konto ein AE-Konto? ------------------
  '   If AKtoArt = 12 Then
  '     MELDUNG = MELDUNG & Chr(10) & _
  '       "Konto " & PersKtoNr & " ist kein Beitragskonto"
  '     GoTo BestBeenden
-'FAB10 ---------angew‰hltes Konto ein Mitglieds- oder Spender-Konto? --------
+'FAB10 ---------angew√§hltes Konto ein Mitglieds- oder Spender-Konto? --------
     If AKtoArt = MitgliedKto Or _
        AKtoArt = SpenderKto Then
-      GoTo EPr¸f
+      GoTo EPr√ºf
     Else
       MELDUNG = MELDUNG & Chr(10) & _
                 "Konto " & AKtoBeschr & Chr(10) & _
@@ -170,14 +170,14 @@ PersonenKonto:  'Mitglieds/Spenderkonto?
       ABBRUCH = True
       GoTo BestBeenden
     End If
-'FAB11 --------- ist das Mitglieds/Spenderkonto ¸berhaupt eingerichtet? ------------
-EPr¸f:
-    If AKtoStatus <= KtoLeerMit‹bertrag Then
-      B = MsgBox("F¸r das Konto " & Chr(10) & Chr(10) & _
+'FAB11 --------- ist das Mitglieds/Spenderkonto √ºberhaupt eingerichtet? ------------
+EPr√ºf:
+    If AKtoStatus <= KtoLeerMit√úbertrag Then
+      B = MsgBox("F√ºr das Konto " & Chr(10) & Chr(10) & _
                   AKtoBeschr & Chr(10) & Chr(10) & _
-                  "sind keine Beitr‰ge vorhanden." & Chr(10) & _
-                  "Soll trotzdem eine Best‰tigung erstellt werden?", _
-                  vbYesNo, "Beitragsbest‰tigung")
+                  "sind keine Beitr√§ge vorhanden." & Chr(10) & _
+                  "Soll trotzdem eine Best√§tigung erstellt werden?", _
+                  vbYesNo, "Beitragsbest√§tigung")
       If B = vbYes Then
         WortBetrag = "in diesem Jahr keine Zuwendung"
         NullBescheinigung = True
@@ -186,11 +186,11 @@ EPr¸f:
         GoTo BestBeenden
       End If
     End If
-'FAB12 ---------------------- vergewissern: Adresse vollst‰ndig --------------------
+'FAB12 ---------------------- vergewissern: Adresse vollst√§ndig --------------------
     If AKtoStrasse = "" Or AKtoOrt = "" Then
-      Meldung2 = "die Adresse des Kontos ''" & AKtoBeschr & "'' ist unvollst‰ndig"
+      Meldung2 = "die Adresse des Kontos ''" & AKtoBeschr & "'' ist unvollst√§ndig"
       B = MsgBox(prompt:=Meldung2 & Chr(10) & _
-                 "Soll trotzdem eine Best‰tigung erstellt werden?", _
+                 "Soll trotzdem eine Best√§tigung erstellt werden?", _
                  Buttons:=vbYesNo, Title:=TiT)
       If B = vbNo Then
         ABBRUCH = True
@@ -200,31 +200,31 @@ EPr¸f:
         GoTo BestBeenden
       End If
     End If
-'FAB13 --------------------------------Name, Straﬂe, Ort ----------------------------------
+'FAB13 --------------------------------Name, Stra√üe, Ort ----------------------------------
     KontoArt = AKtoArt
-    BlattName = AKtoBlatt    'f¸r Best‰tigungsblatt
+    BlattName = AKtoBlatt    'f√ºr Best√§tigungsblatt
     Beschreibung = AKtoBeschr
-    NamenL‰nge = Len(Beschreibung)
-    For I = 1 To NamenL‰nge Step 1    'Vornamen vor Familiennamen
+    NamenL√§nge = Len(Beschreibung)
+    For I = 1 To NamenL√§nge Step 1    'Vornamen vor Familiennamen
       FName = Left(Beschreibung, I)
       If Mid(Beschreibung, I + 1, 2) = ", " Then
-        FName = Right(Beschreibung, NamenL‰nge - I - 2) & " " & FName
+        FName = Right(Beschreibung, NamenL√§nge - I - 2) & " " & FName
         Exit For
       End If
-      If I = NamenL‰nge Then
+      If I = NamenL√§nge Then
         FName = Beschreibung
       End If
     Next I
-    MStraﬂe = Cells(AktZeile, KPCStraﬂe).Value
+    MStra√üe = Cells(AktZeile, KPCStra√üe).Value
     MOrt = Cells(AktZeile, KPCOrt).Value
-    If MStraﬂe = "" Or IsNumeric(Left(MOrt, 5)) = False Then
-      Range(Cells(AktZeile, KPCStraﬂe), Cells(AktZeile, KPCOrt)).Select
+    If MStra√üe = "" Or IsNumeric(Left(MOrt, 5)) = False Then
+      Range(Cells(AktZeile, KPCStra√üe), Cells(AktZeile, KPCOrt)).Select
       MELDUNG = "Ist die Adresse verwendbar ?"    ' Meldung definieren.
       Schalter = vbYesNo
       Antwort = MsgBox(MELDUNG, Schalter, TiT) ', Hilfe, Ktxt)
       If Antwort = vbNo Then
         B = MsgBox("" & Chr(10) & _
-                   "Keine Best‰tigung f¸r ''" & FName & "'' erstellt", , TiT)
+                   "Keine Best√§tigung f√ºr ''" & FName & "'' erstellt", , TiT)
         Exit Sub
       End If
     End If
@@ -234,7 +234,7 @@ EPr¸f:
   With Worksheets("FABestVorl")
     .Activate
     If Cells(7, 5).Value = 0 Then
-      NurSpenden = True   'Vorlage enth‰lt keinen "wie Kirchensteuer"-Text
+      NurSpenden = True   'Vorlage enth√§lt keinen "wie Kirchensteuer"-Text
     Else
       NurSpenden = False
     End If
@@ -252,22 +252,22 @@ EPr¸f:
     End If
     TagLetztZuw = ActiveCell.Offset(-1, 0).Value
     ZiffBetrag = CStr(ActiveCell.Offset(2, 6).Value) 'Einzutragen als Zahl
-    ZBetrL‰nge = Len(ZiffBetrag)
+    ZBetrL√§nge = Len(ZiffBetrag)
   End With 'Worksheets Mitglieds/Spender-Konto
-'FAB16 ----------- Darstellungsmˆglichkeiten von ZiffBetrag ber¸cksichtigen ------------
+'FAB16 ----------- Darstellungsm√∂glichkeiten von ZiffBetrag ber√ºcksichtigen ------------
     Centbetrag = "00"
     If Left(Right(ZiffBetrag, 3), 1) = "," Then
-      EuroBetrag = Left(ZiffBetrag, ZBetrL‰nge - 3)
+      EuroBetrag = Left(ZiffBetrag, ZBetrL√§nge - 3)
       Centbetrag = Right(ZiffBetrag, 2)
       GoTo ZiffBetragAlsText
     End If
     If Left(Right(ZiffBetrag, 2), 1) = "," Then
-      EuroBetrag = Left(ZiffBetrag, ZBetrL‰nge - 2)
+      EuroBetrag = Left(ZiffBetrag, ZBetrL√§nge - 2)
       Centbetrag = Right(ZiffBetrag, 1) & "0"
       GoTo ZiffBetragAlsText
     End If
     If Left(Right(ZiffBetrag, 1), 1) = "," Then
-      EuroBetrag = Left(ZiffBetrag, ZBetrL‰nge - 1)
+      EuroBetrag = Left(ZiffBetrag, ZBetrL√§nge - 1)
       Centbetrag = "00"
       GoTo ZiffBetragAlsText
     End If
@@ -285,18 +285,18 @@ BetrIWorten:
     If ABBRUCH = True Then GoTo BestBeenden
     AktJahr = Sheets("Kontenplan").Cells(1, 5)
     If KontoArt = MitgliedKto And NurSpenden = False Then 'Unterscheidung Beitrag/Spende
-      ArtDerZuwendung = "Geldzuwendung (Mitgliedsbeitr‰ge " & AktJahr & ")"
+      ArtDerZuwendung = "Geldzuwendung (Mitgliedsbeitr√§ge " & AktJahr & ")"
       Voraussetzung = "Vor"
     Else
       ArtDerZuwendung = "Geldzuwendung (Spenden " & AktJahr & ")"
       Voraussetzung = ""
     End If
-'FAB18 ----------------------- Best‰tigungs-Blatt erzeugen -----------------------------
+'FAB18 ----------------------- Best√§tigungs-Blatt erzeugen -----------------------------
   BestName = "Best" & AKtoBlatt
   For Each W In Worksheets
     If W.Name = BestName Then
-      B = MsgBox("Soll ''" & BestName & "'' ¸berschrieben werden?", vbYesNo, _
-             "Spendenbest‰tigung ''" & BestName & "'' schon vorhanden:")
+      B = MsgBox("Soll ''" & BestName & "'' √ºberschrieben werden?", vbYesNo, _
+             "Spendenbest√§tigung ''" & BestName & "'' schon vorhanden:")
       If B = vbYes Then
         Application.DisplayAlerts = False
         W.Delete
@@ -305,28 +305,28 @@ BetrIWorten:
       Else
         Call MsgBox("Vorhandenes Blatt  ''" & BestName & "''" & Chr(10) & _
                 "umbenennen und " & Chr(10) & _
-                "Best‰tigungserstellung von Kontenplan aus neu starten", 0, _
-                BestName & "  Nicht ¸berschreiben")
+                "Best√§tigungserstellung von Kontenplan aus neu starten", 0, _
+                BestName & "  Nicht √ºberschreiben")
         Exit Sub
       End If
     End If
   Next W
-'FAB19 ------------------------ Best‰tigungs-Blatt erzeugen -----------------------------
+'FAB19 ------------------------ Best√§tigungs-Blatt erzeugen -----------------------------
   Worksheets("FABestVorl").Copy Before:=Sheets("FABestVorl")
   Worksheets("FABestVorl (2)").Name = BestName
-'FAB18 ---------------------- Werte in Best‰tigung eintragen ----------------------------
+'FAB18 ---------------------- Werte in Best√§tigung eintragen ----------------------------
   With Worksheets(BestName)
     .Activate
     Cells(Cells(1, 4), Cells(1, 5)).Value = ArtDerZuwendung
     Cells(Cells(2, 4), Cells(2, 5)).Value = FName
-    Cells(Cells(2, 4), Cells(2, 5)).Offset(1, 0).Value = MStraﬂe
+    Cells(Cells(2, 4), Cells(2, 5)).Offset(1, 0).Value = MStra√üe
     Cells(Cells(2, 4), Cells(2, 5)).Offset(2, 0).Value = MOrt
-    ZiffBetrag = "*****" & ZiffBetrag & "Ä"
+    ZiffBetrag = "*****" & ZiffBetrag & "¬Ä"
     Cells(Cells(3, 4), Cells(3, 5)).Value = ZiffBetrag
-    Cells(Cells(4, 4), Cells(4, 5)).Value = WortBetrag & "  Ä"
+    Cells(Cells(4, 4), Cells(4, 5)).Value = WortBetrag & "  ¬Ä"
     Cells(Cells(5, 4), Cells(5, 5)).Value = TagLetztZuw & " " & AktJahr
     Cells(Cells(6, 4), Cells(6, 5)).Value = Date
-    If Voraussetzung <> "Vor" And Cells(7, 4) <> 0 Then        'Lˆschen
+    If Voraussetzung <> "Vor" And Cells(7, 4) <> 0 Then        'L√∂schen
       Cells(Cells(7, 4), Cells(7, 5)).Value = ""               'des
       Cells(Cells(7, 4), Cells(7, 5)).Offset(1, 0).Value = ""  'Voraussetzungs-
       Cells(Cells(7, 4), Cells(7, 5)).Offset(2, 0).Value = ""  'textes
@@ -342,30 +342,30 @@ BetrIWorten:
 'FAB21 ------------------------------ Druckdialog ----------------------------------
 DruckDialog:
 '    If AEKonto = True Then
-'      B = MsgBox("" & Chr(10) & "AE-Liste f¸r ''" & FName & "'' drucken?", _
+'      B = MsgBox("" & Chr(10) & "AE-Liste f√ºr ''" & FName & "'' drucken?", _
 '               vbYesNo, "AE-Liste vorhanden")
 '    Else
-      B = MsgBox("" & Chr(10) & "Zuwendungsbest‰tigung f¸r ''" & FName & "'' drucken?", _
-               vbYesNo, "Best‰tigung erstellt")
+      B = MsgBox("" & Chr(10) & "Zuwendungsbest√§tigung f√ºr ''" & FName & "'' drucken?", _
+               vbYesNo, "Best√§tigung erstellt")
 '   End If
     If B = vbYes Then
       Application.PrintCommunication = True
       ActiveWindow.SelectedSheets.PrintOut Copies:=1, Collate:=True, _
             IgnorePrintAreas:=False
 '       If AEKonto = True Then
-      EndText = "Best‰tigung f¸r  ''" & FName & "''  ausgedruckt"
+      EndText = "Best√§tigung f√ºr  ''" & FName & "''  ausgedruckt"
       Drucken = True
     End If
     If B = vbNo Then '
 '      If AEKonto = True Then
-'        EndText = "AE-Liste f¸r  ''" & FName & "'' erstellt" & Chr(10) & _
+'        EndText = "AE-Liste f√ºr  ''" & FName & "'' erstellt" & Chr(10) & _
 '                  "Blattname ''" & BlattName & "''"
 '      Else
-        EndText = "Best‰tigung f¸r  ''" & FName & "''  erstellt" & Chr(10) & _
+        EndText = "Best√§tigung f√ºr  ''" & FName & "''  erstellt" & Chr(10) & _
                   "Blattname ''" & BlattName & "''"
 '      End If
       If AKtoStatus < KtoGanzLeer Then
-        EndText = "Best‰tigung f¸r  ''" & FName & "''  erstellt" & Chr(10) & _
+        EndText = "Best√§tigung f√ºr  ''" & FName & "''  erstellt" & Chr(10) & _
                 "Kein Kontoblatt vorhanden."
       End If
       Drucken = False
@@ -378,7 +378,7 @@ DruckDialog:
       If Drucken = False Then
         ActiveCell.Value = "( " & ActiveCell.Value & " )"
       End If
-      Call MsgBox(EndText, 0, "Beitrags/Spenden-Best‰tigung")
+      Call MsgBox(EndText, 0, "Beitrags/Spenden-Best√§tigung")
     End With 'Sheets("Kontenplan")
   End With 'Worksheets(BestName)
 'FAB22 ------------------ Endemeldung ----------------------------
@@ -391,52 +391,52 @@ BestBeenden:
   End If
   If ABBRUCH = True Then
     EndText = MELDUNG & Chr(10) & _
-      "Best‰tigung f¸r  ''" & AKtoBeschr & "''  abgebrochen"
+      "Best√§tigung f√ºr  ''" & AKtoBeschr & "''  abgebrochen"
   End If
   If ABBRUCH = False Then
     EndText = MELDUNG & Chr(10) & _
-      "Best‰tigung f¸r  ''" & AKtoBeschr & "''  erstellt"
+      "Best√§tigung f√ºr  ''" & AKtoBeschr & "''  erstellt"
   End If
     Call MsgBox(EndText, vbOKOnly, _
-    "Beitrags/Spenden-Best‰tigung")
+    "Beitrags/Spenden-Best√§tigung")
   End With 'ActiveWindow
-End Sub 'FinAmtBest‰tigen
+End Sub 'FinAmtBest√§tigen
 '
 '
 Function BetragInWorten(Betrag As Variant) As String
 'Wandelt den in Ziffern (auch als String) angegebenen ganzzahligen Betrag
 '(maximal 999999) in das Zahlwort um.  Benutzt:
 'Sub TextScan(Text As String, StartStelle As Long, EndString As String)
-'out: TextSt¸ck (String), L‰ngeTextst¸ck, Lesezeiger (Long),
+'out: TextSt√ºck (String), L√§ngeTextst√ºck, Lesezeiger (Long),
 '     TextEndeErreicht (Boolean)
 
-  Dim WBetrag As String, BetragL‰nge As Long, Stelle As Long, L‰nge As Long
+  Dim WBetrag As String, BetragL√§nge As Long, Stelle As Long, L√§nge As Long
   Dim BetZ As String, BetT As String, A
  
-  BetragL‰nge = Len(Betrag)
-  If BetragL‰nge > 6 Then
+  BetragL√§nge = Len(Betrag)
+  If BetragL√§nge > 6 Then
     MELDUNG = MELDUNG & Chr(10) & _
     "In Worten umzuwandelnder Betrag mehr als sechsstellig." & Chr(10) & _
          "Umwandlung abgebrochen."
     ABBRUCH = True
-    WBetrag = "zu groﬂ"
+    WBetrag = "zu gro√ü"
     GoTo Fertig
   End If
   WBetrag = ""
-  If BetragL‰nge = 0 Then
+  If BetragL√§nge = 0 Then
     WBetrag = "Null"
     GoTo Fertig
   End If
-  If BetragL‰nge = 1 Or BetragL‰nge = 2 Then
+  If BetragL√§nge = 1 Or BetragL√§nge = 2 Then
     GoTo Stelle2u1
   End If
-  If BetragL‰nge = 3 Then
+  If BetragL√§nge = 3 Then
     GoTo Stelle3
   End If
-  If BetragL‰nge = 4 Or BetragL‰nge = 5 Then
+  If BetragL√§nge = 4 Or BetragL√§nge = 5 Then
     GoTo Stelle5u4
   End If
-  If BetragL‰nge = 6 Then
+  If BetragL√§nge = 6 Then
     GoTo Stelle6
   End If
 Stelle6:
@@ -482,12 +482,12 @@ Function EinerZehner(ByVal Ziffern As String, Stellung As Integer) As String
 'Gesamtstring einen Wortausdruck einer der Zahlen 1...99. Die Information
 '"Stellung" wird dazu verwendet, zwischen "eins" und "ein" zu unterscheiden.
 '"Stellung" wird in der vom aufrufenden Programm in Text umzuwandelnden Gesamtzahl
-'von rechts gez‰hlt, also Einer, Zehner, Hunderter,... Werden zwei Ziffern ¸bergeben,
-'bezeichnet "Stellung" die Stelle der rechten Ziffer (von rechts nach links gez‰hlt).
+'von rechts gez√§hlt, also Einer, Zehner, Hunderter,... Werden zwei Ziffern √ºbergeben,
+'bezeichnet "Stellung" die Stelle der rechten Ziffer (von rechts nach links gez√§hlt).
 '
-Dim L‰ngeZ As Integer, ZiffZ As String, ZiffT As String
+Dim L√§ngeZ As Integer, ZiffZ As String, ZiffT As String
 
-  L‰ngeZ = Len(Ziffern)   'nur 1 oder 2 kommen vor
+  L√§ngeZ = Len(Ziffern)   'nur 1 oder 2 kommen vor
   ZiffT = ""
 '-------------------- Fall "00" ----------------------------
   If Ziffern = "00" Then
@@ -499,13 +499,13 @@ Dim L‰ngeZ As Integer, ZiffZ As String, ZiffT As String
     GoTo Fertig
   End If
 '----------------- Fall "10 bis 19" ------------------------
-  If L‰ngeZ = 2 And Left(Ziffern, 1) = "1" Then
+  If L√§ngeZ = 2 And Left(Ziffern, 1) = "1" Then
     If Right(Ziffern, 1) = "0" Then ZiffT = "zehn"
     If Right(Ziffern, 1) = "1" Then ZiffT = "elf"
-    If Right(Ziffern, 1) = "2" Then ZiffT = "zwˆlf"
+    If Right(Ziffern, 1) = "2" Then ZiffT = "zw√∂lf"
     If Right(Ziffern, 1) = "3" Then ZiffT = "dreizehn"
     If Right(Ziffern, 1) = "4" Then ZiffT = "vierzehn"
-    If Right(Ziffern, 1) = "5" Then ZiffT = "f¸nfzehn"
+    If Right(Ziffern, 1) = "5" Then ZiffT = "f√ºnfzehn"
     If Right(Ziffern, 1) = "6" Then ZiffT = "sechzehn"
     If Right(Ziffern, 1) = "7" Then ZiffT = "siebzehn"
     If Right(Ziffern, 1) = "8" Then ZiffT = "achzehn"
@@ -513,32 +513,32 @@ Dim L‰ngeZ As Integer, ZiffZ As String, ZiffT As String
     GoTo Fertig
   End If
 '----------------- Fall "x1 bis x9, x<>1" -------------------
-  If L‰ngeZ = 2 And Left(Ziffern, 1) <> "1" And Right(Ziffern, 1) <> "0" Or L‰ngeZ = 1 Then
+  If L√§ngeZ = 2 And Left(Ziffern, 1) <> "1" And Right(Ziffern, 1) <> "0" Or L√§ngeZ = 1 Then
     If Right(Ziffern, 1) = "1" Then ZiffT = "ein"
     If Right(Ziffern, 1) = "2" Then ZiffT = "zwei"
     If Right(Ziffern, 1) = "3" Then ZiffT = "drei"
     If Right(Ziffern, 1) = "4" Then ZiffT = "vier"
-    If Right(Ziffern, 1) = "5" Then ZiffT = "f¸nf"
+    If Right(Ziffern, 1) = "5" Then ZiffT = "f√ºnf"
     If Right(Ziffern, 1) = "6" Then ZiffT = "sechs"
     If Right(Ziffern, 1) = "7" Then ZiffT = "sieben"
     If Right(Ziffern, 1) = "8" Then ZiffT = "acht"
     If Right(Ziffern, 1) = "9" Then ZiffT = "neun"
   End If
 '-------------------- Fall "nur Einer" ----------------------
-  If L‰ngeZ = 1 Or (L‰ngeZ = 2 And Left(Ziffern, 1) = 0) Then
+  If L√§ngeZ = 1 Or (L√§ngeZ = 2 And Left(Ziffern, 1) = 0) Then
     GoTo Fertig
   End If
 '-------------------- Fall "auch Zehner <> 1" ----------------------
-  If ZiffT <> "" And L‰ngeZ = 2 And Left(Ziffern, 1) <> "0" Then
+  If ZiffT <> "" And L√§ngeZ = 2 And Left(Ziffern, 1) <> "0" Then
     ZiffZ = ZiffT & "und"
   Else
     ZiffZ = ZiffT
   End If
 '-------------------- Fall "Zehner <> 1" --------------------------
   If Left(Ziffern, 1) = "2" Then ZiffT = "zwanzig"
-  If Left(Ziffern, 1) = "3" Then ZiffT = "dreiﬂig"
+  If Left(Ziffern, 1) = "3" Then ZiffT = "drei√üig"
   If Left(Ziffern, 1) = "4" Then ZiffT = "vierzig"
-  If Left(Ziffern, 1) = "5" Then ZiffT = "f¸nfzig"
+  If Left(Ziffern, 1) = "5" Then ZiffT = "f√ºnfzig"
   If Left(Ziffern, 1) = "6" Then ZiffT = "sechzig"
   If Left(Ziffern, 1) = "7" Then ZiffT = "siebzig"
   If Left(Ziffern, 1) = "8" Then ZiffT = "achzig"
